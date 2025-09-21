@@ -20,7 +20,7 @@ Designed for students, educators, or anyone who loves to test their knowledge an
 
 ## 🌐 Live Demo
 
-You can try the live version here:  
+You can try the live version here:   https://kavyaghantasala.github.io/onlinequizapplication/
 
 ---
 
