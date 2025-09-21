@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Create & Take Quizzes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuizMaster</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 12px 30px;
+      color: white;
+      border-radius: 12px 12px 0 0;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .nav-btn.active {
+      background: #ffc107;
+      color: #333;
+    }
+
+    .logout {
+      background: rgba(255, 0, 0, 0.5);
+    }
+
+    .logout:hover {
+      background: rgba(255, 0, 0, 0.7);
+    }
+
+    /* Auth Card */
+    .auth-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .auth-card {
+      display: flex;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    /* Left Section */
+    .auth-info {
+      flex: 1;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 40px;
+    }
+
+    .auth-info h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .auth-info p {
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .auth-info ul {
+      list-style: none;
+    }
+
+    .auth-info li {
+      margin: 12px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .auth-info li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #ffc107;
+      font-weight: bold;
+    }
+
+    /* Right Section */
+    .auth-forms {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      padding-bottom: 6px;
+      cursor: pointer;
+      color: #777;
+      border-bottom: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .tab.active {
+      color: #333;
+      font-weight: bold;
+      border-bottom: 2px solid #2575fc;
+    }
+
+    .form {
+      display: none;
+      flex-direction: column;
+    }
+
+    .form.active {
+      display: flex;
+    }
+
+    label {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    input, textarea {
+      margin-top: 5px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #2575fc;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #2575fc;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1a5ed9;
+    }
+
+    .toggle-text {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #555;
+    }
+
+    .toggle-text span {
+      color: #2575fc;
+      cursor: pointer;
+    }
+
+    /* Dashboard */
+    .dashboard {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 0 auto;
+      max-width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .dashboard h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .dashboard-btn {
+      background: #2575fc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.3s;
+    }
+
+    .dashboard-btn:hover {
+      background: #1a5ed9;
+    }
+
+    /* Quiz Container */
+    .quiz-container {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 0 auto;
+      max-width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #f9f9f9;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: left;
+    }
+
+    .option-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .next-btn {
+      background: #2575fc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .next-btn:hover {
+      background: #1a5ed9;
+    }
+
+    /* Results Container */
+    .results-container {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 0 auto;
+      max-width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .results-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .score {
+      font-size: 2rem;
+      color: #2575fc;
+      margin-bottom: 20px;
+    }
+
+    .restart-btn {
+      background: #2575fc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .restart-btn:hover {
+      background: #1a5ed9;
+    }
+
+    /* Create Quiz */
+    .create-quiz {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 0 auto;
+      max-width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .create-quiz h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .question-form {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+
+    .option-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .correct-option {
+      accent-color: #2575fc;
+    }
+
+    .add-question-btn, .remove-question-btn, .save-quiz-btn {
+      background: #2575fc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+
+    .remove-question-btn {
+      background: #f44336;
+    }
+
+    .save-quiz-btn {
+      background: #4CAF50;
+    }
+
+    /* Quiz List */
+    .quiz-list {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .quiz-item {
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quiz-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .take-quiz-btn, .delete-quiz-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .take-quiz-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .delete-quiz-btn {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="icon">🧠</span> QuizMaster
+    </div>
+    <nav class="nav-links">
+      <button id="dashboard-btn" class="nav-btn active">Dashboard</button>
+      <button id="take-quiz-btn" class="nav-btn">Take Quiz</button>
+      <button id="create-quiz-btn" class="nav-btn">Create Quiz</button>
+      <button id="logout-btn" class="nav-btn logout">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Auth Card -->
+  <main class="auth-wrapper" id="auth-card">
+    <div class="auth-card">
+      <!-- Left Section -->
+      <div class="auth-info">
+        <h2>Welcome to QuizMaster</h2>
+        <p>Test your knowledge with our interactive quiz platform.</p>
+        <ul>
+          <li>Multiple choice quizzes</li>
+          <li>Create your own quizzes</li>
+          <li>Instant scoring</li>
+        </ul>
+      </div>
+
+      <!-- Right Section -->
+      <div class="auth-forms">
+        <div class="tabs">
+          <button id="login-tab" class="tab active">Login</button>
+          <button id="signup-tab" class="tab">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="form active">
+          <label>Email</label>
+          <input type="email" id="login-email" required />
+          <label>Password</label>
+          <input type="password" id="login-password" required />
+          <button type="submit" class="btn">Login</button>
+          <p class="toggle-text">Don't have an account? <span id="show-signup">Sign up</span></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="form">
+          <label>Email</label>
+          <input type="email" id="signup-email" required />
+          <label>Password</label>
+          <input type="password" id="signup-password" required />
+          <button type="submit" class="btn">Sign Up</button>
+          <p class="toggle-text">Already have an account? <span id="show-login">Login</span></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="dashboard hidden">
+    <h2>Welcome to Your Dashboard</h2>
+    <p>Test your knowledge with our quizzes or create your own!</p>
+    <button id="start-quiz-btn" class="dashboard-btn">Start a Quiz</button>
+    <button id="create-quiz-dash-btn" class="dashboard-btn">Create a Quiz</button>
+    
+    <div class="quiz-list" id="user-quiz-list">
+      <h3>Your Quizzes</h3>
+      <div id="quizzes-container">
+        <!-- User quizzes will be displayed here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Container -->
+  <section id="quiz-container" class="quiz-container hidden">
+    <h2 class="question" id="question">Question goes here</h2>
+    <div id="options-container" class="options-container">
+      <!-- Options will be inserted here by JavaScript -->
+    </div>
+    <button id="next-btn" class="next-btn">Next Question</button>
+  </section>
+
+  <!-- Results Container -->
+  <section id="results-container" class="results-container hidden">
+    <h2>Quiz Completed!</h2>
+    <p class="score">Your score: <span id="score">0</span></p>
+    <button id="restart-btn" class="restart-btn">Back to Dashboard</button>
+  </section>
+
+  <!-- Create Quiz Section -->
+  <section id="create-quiz-section" class="create-quiz hidden">
+    <h2>Create a New Quiz</h2>
+    <form id="quiz-form">
+      <label for="quiz-title">Quiz Title</label>
+      <input type="text" id="quiz-title" required>
+      
+      <div id="questions-container">
+        <div class="question-form">
+          <label>Question 1</label>
+          <textarea class="question-text" placeholder="Enter your question" required></textarea>
+          
+          <div class="option-input">
+            <input type="radio" name="correct-option-0" class="correct-option" value="0" checked>
+            <input type="text" class="option-text" placeholder="Option 1" required>
+          </div>
+          
+          <div class="option-input">
+            <input type="radio" name="correct-option-0" class="correct-option" value="1">
+            <input type="text" class="option-text" placeholder="Option 2" required>
+          </div>
+          
+          <div class="option-input">
+            <input type="radio" name="correct-option-0" class="correct-option" value="2">
+            <input type="text" class="option-text" placeholder="Option 3" required>
+          </div>
+          
+          <div class="option-input">
+            <input type="radio" name="correct-option-0" class="correct-option" value="3">
+            <input type="text" class="option-text" placeholder="Option 4" required>
+          </div>
+        </div>
+      </div>
+      
+      <button type="button" id="add-question-btn" class="add-question-btn">Add Question</button>
+      <button type="button" id="remove-question-btn" class="remove-question-btn">Remove Last Question</button>
+      <button type="submit" id="save-quiz-btn" class="save-quiz-btn">Save Quiz</button>
+    </form>
+  </section>
+
+  <script>
+    // DOM Elements
+    const loginTab = document.getElementById("login-tab");
+    const signupTab = document.getElementById("signup-tab");
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const showSignup = document.getElementById("show-signup");
+    const showLogin = document.getElementById("show-login");
+
+    const authCard = document.getElementById("auth-card");
+    const dashboard = document.getElementById("dashboard");
+    const quizContainer = document.getElementById("quiz-container");
+    const resultsContainer = document.getElementById("results-container");
+    const questionElement = document.getElementById("question");
+    const optionsContainer = document.getElementById("options-container");
+    const nextBtn = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+    const restartBtn = document.getElementById("restart-btn");
+    const startQuizBtn = document.getElementById("start-quiz-btn");
+    const createQuizSection = document.getElementById("create-quiz-section");
+    const createQuizBtn = document.getElementById("create-quiz-btn");
+    const createQuizDashBtn = document.getElementById("create-quiz-dash-btn");
+    const quizForm = document.getElementById("quiz-form");
+    const questionsContainer = document.getElementById("questions-container");
+    const addQuestionBtn = document.getElementById("add-question-btn");
+    const removeQuestionBtn = document.getElementById("remove-question-btn");
+    const quizzesContainer = document.getElementById("quizzes-container");
+
+    const dashboardBtn = document.getElementById("dashboard-btn");
+    const takeQuizBtn = document.getElementById("take-quiz-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // State
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
+    let quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    let userQuizzes = [];
+    let currentQuiz = [];
+    let currentIndex = 0;
+    let score = 0;
+    let questionCount = 1;
+
+    // Quiz Data
+    const quizTemplates = [
+      {
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup"],
+        correctAnswer: 0,
+      },
+      {
+        question: "What does CSS stand for?",
+        options: ["Creative Style Sheets", "Cascading Style Sheets", "Colorful Style"],
+        correctAnswer: 1,
+      },
+      {
+        question: "Which symbol starts a JS single-line comment?",
+        options: ["//", "<!--", "#"],
+        correctAnswer: 0,
+      },
+    ];
+
+    // Initialize the application
+    function init() {
+      // Update user quizzes
+      if (currentUser) {
+        userQuizzes = quizzes.filter(quiz => quiz.creator === currentUser.email);
+      }
+      
+      // Render user quizzes
+      renderUserQuizzes();
+    }
+
+    // -------------------- AUTH --------------------
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+    });
+
+    signupTab.addEventListener("click", () => {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+    });
+
+    showSignup.addEventListener("click", () => signupTab.click());
+    showLogin.addEventListener("click", () => loginTab.click());
+
+    // Signup
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      if (users.find((u) => u.email === email)) {
+        alert("User already exists.");
+        loginTab.click();
+        return;
+      }
+
+      users.push({ email, password });
+      localStorage.setItem("users", JSON.stringify(users));
+      
+      // Automatically log in the user after signup
+      currentUser = { email, password };
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      alert("Signup successful! You are now logged in.");
+      signupForm.reset();
+      showDashboard();
+    });
+
+    // Login
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      const user = users.find((u) => u.email === email && u.password === password);
+
+      if (user) {
+        currentUser = user;
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        showDashboard();
+      } else {
+        alert("Invalid credentials.");
+      }
+    });
+
+    // -------------------- DASHBOARD --------------------
+    function showDashboard() {
+      authCard.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+      quizContainer.classList.add("hidden");
+      resultsContainer.classList.add("hidden");
+      createQuizSection.classList.add("hidden");
+      
+      // Update user quizzes
+      userQuizzes = quizzes.filter(quiz => quiz.creator === currentUser.email);
+      renderUserQuizzes();
+    }
+
+    // -------------------- QUIZ --------------------
+    function startQuiz() {
+      currentQuiz = [...quizTemplates];
+      currentIndex = 0;
+      score = 0;
+      dashboard.classList.add("hidden");
+      quizContainer.classList.remove("hidden");
+      resultsContainer.classList.add("hidden");
+      createQuizSection.classList.add("hidden");
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const currentQ = currentQuiz[currentIndex];
+      questionElement.textContent = currentQ.question;
+      optionsContainer.innerHTML = "";
+      currentQ.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.classList.add("option-btn");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(i);
+        optionsContainer.appendChild(btn);
+      });
+      
+      // Hide next button until an answer is selected
+      nextBtn.style.display = "none";
+    }
+
+    function checkAnswer(selected) {
+      const correct = currentQuiz[currentIndex].correctAnswer;
+      const options = optionsContainer.querySelectorAll(".option-btn");
+      
+      // Disable all buttons after selection
+      options.forEach(btn => {
+        btn.disabled = true;
+      });
+      
+      // Highlight correct and incorrect answers
+      options[correct].style.backgroundColor = "#4CAF50";
+      options[correct].style.color = "white";
+      
+      if (selected !== correct) {
+        options[selected].style.backgroundColor = "#F44336";
+        options[selected].style.color = "white";
+      } else {
+        score++;
+      }
+      
+      // Show next button
+      nextBtn.style.display = "block";
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      if (currentIndex < currentQuiz.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    function showResults() {
+      quizContainer.classList.add("hidden");
+      resultsContainer.classList.remove("hidden");
+      scoreElement.textContent = `${score} / ${currentQuiz.length}`;
+    }
+
+    // -------------------- CREATE QUIZ --------------------
+    createQuizBtn.addEventListener("click", showCreateQuiz);
+    createQuizDashBtn.addEventListener("click", showCreateQuiz);
+
+    function showCreateQuiz() {
+      authCard.classList.add("hidden");
+      dashboard.classList.add("hidden");
+      quizContainer.classList.add("hidden");
+      resultsContainer.classList.add("hidden");
+      createQuizSection.classList.remove("hidden");
+    }
+
+    // Add question
+    addQuestionBtn.addEventListener("click", () => {
+      questionCount++;
+      const newQuestion = document.createElement("div");
+      newQuestion.classList.add("question-form");
+      newQuestion.innerHTML = `
+        <label>Question ${questionCount}</label>
+        <textarea class="question-text" placeholder="Enter your question" required></textarea>
+        
+        <div class="option-input">
+          <input type="radio" name="correct-option-${questionCount-1}" class="correct-option" value="0" checked>
+          <input type="text" class="option-text" placeholder="Option 1" required>
+        </div>
+        
+        <div class="option-input">
+          <input type="radio" name="correct-option-${questionCount-1}" class="correct-option" value="1">
+          <input type="text" class="option-text" placeholder="Option 2" required>
+        </div>
+        
+        <div class="option-input">
+          <input type="radio" name="correct-option-${questionCount-1}" class="correct-option" value="2">
+          <input type="text" class="option-text" placeholder="Option 3" required>
+        </div>
+        
+        <div class="option-input">
+          <input type="radio" name="correct-option-${questionCount-1}" class="correct-option" value="3">
+          <input type="text" class="option-text" placeholder="Option 4" required>
+        </div>
+      `;
+      questionsContainer.appendChild(newQuestion);
+    });
+
+    // Remove question
+    removeQuestionBtn.addEventListener("click", () => {
+      if (questionCount > 1) {
+        questionsContainer.removeChild(questionsContainer.lastChild);
+        questionCount--;
+      }
+    });
+
+    // Save quiz
+    quizForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const title = document.getElementById("quiz-title").value;
+      const questions = [];
+      
+      // Get all question forms
+      const questionForms = questionsContainer.querySelectorAll('.question-form');
+      
+      questionForms.forEach((form, index) => {
+        const questionText = form.querySelector('.question-text').value;
+        const optionInputs = form.querySelectorAll('.option-text');
+        const correctOption = form.querySelector('.correct-option:checked').value;
+        
+        const options = [];
+        optionInputs.forEach(input => {
+          options.push(input.value);
+        });
+        
+        questions.push({
+          question: questionText,
+          options: options,
+          correctAnswer: parseInt(correctOption)
+        });
+      });
+      
+      // Save the quiz
+      const newQuiz = {
+        title: title,
+        questions: questions,
+        creator: currentUser.email
+      };
+      
+      quizzes.push(newQuiz);
+      localStorage.setItem("quizzes", JSON.stringify(quizzes));
+      
+      alert('Quiz created successfully!');
+      quizForm.reset();
+      showDashboard();
+    });
+
+    // Render user quizzes
+    function renderUserQuizzes() {
+      quizzesContainer.innerHTML = '';
+      
+      if (userQuizzes.length === 0) {
+        quizzesContainer.innerHTML = '<p>You haven\'t created any quizzes yet.</p>';
+        return;
+      }
+      
+      userQuizzes.forEach((quiz, index) => {
+        const quizElement = document.createElement('div');
+        quizElement.classList.add('quiz-item');
+        quizElement.innerHTML = `
+          <div class="quiz-title">${quiz.title}</div>
+          <div class="quiz-actions">
+            <button class="take-quiz-btn" data-index="${index}">Take Quiz</button>
+            <button class="delete-quiz-btn" data-index="${index}">Delete</button>
+          </div>
+        `;
+        quizzesContainer.appendChild(quizElement);
+      });
+      
+      // Add event listeners to the buttons
+      document.querySelectorAll('.take-quiz-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-index');
+          takeUserQuiz(index);
+        });
+      });
+      
+      document.querySelectorAll('.delete-quiz-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-index');
+          deleteUserQuiz(index);
+        });
+      });
+    }
+
+    function takeUserQuiz(index) {
+      currentQuiz = userQuizzes[index].questions;
+      currentIndex = 0;
+      score = 0;
+      dashboard.classList.add("hidden");
+      quizContainer.classList.remove("hidden");
+      resultsContainer.classList.add("hidden");
+      createQuizSection.classList.add("hidden");
+      loadQuestion();
+    }
+
+    function deleteUserQuiz(index) {
+      const quizTitle = userQuizzes[index].title;
+      if (confirm(`Are you sure you want to delete the quiz "${quizTitle}"?`)) {
+        // Remove from quizzes array
+        const globalIndex = quizzes.findIndex(q => q.title === quizTitle && q.creator === currentUser.email);
+        if (globalIndex !== -1) {
+          quizzes.splice(globalIndex, 1);
+          localStorage.setItem("quizzes", JSON.stringify(quizzes));
+        }
+        
+        // Update user quizzes and re-render
+        userQuizzes = quizzes.filter(quiz => quiz.creator === currentUser.email);
+        renderUserQuizzes();
+      }
+    }
+
+    // -------------------- NAVBAR --------------------
+    dashboardBtn.addEventListener("click", showDashboard);
+    takeQuizBtn.addEventListener("click", startQuiz);
+    startQuizBtn.addEventListener("click", startQuiz);
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("currentUser");
+      currentUser = null;
+      authCard.classList.remove("hidden");
+      dashboard.classList.add("hidden");
+      quizContainer.classList.add("hidden");
+      resultsContainer.classList.add("hidden");
+      createQuizSection.classList.add("hidden");
+    });
+
+    // Restart Quiz
+    restartBtn.addEventListener("click", () => {
+      showDashboard();
+    });
+
+    // Initialize the application
+    init();
+
+    // -------------------- AUTO LOGIN --------------------
+    if (currentUser) {
+      showDashboard();
+    }
+  </script>
+</body>
+</html>
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #4A6FCB 0%, #6a11cb 100%);
+            color: white;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #FFC107;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-btn.active {
+            background: #FFC107;
+            color: #333;
+        }
+        
+        .content {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        /* Auth Styles */
+        .auth-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .welcome-section {
+            flex: 1;
+            background: linear-gradient(135deg, #4A6FCB 0%, #6a11cb 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .welcome-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            margin-top: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features i {
+            margin-right: 10px;
+            color: #FFC107;
+        }
+        
+        .form-section {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #777;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: #4A6FCB;
+            border-bottom: 3px solid #4A6FCB;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #4A6FCB;
+            outline: none;
+        }
+
+        .form-group input.invalid {
+            border-color: #f44336;
+        }
+        
+        .validation-message {
+            color: #c62828;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4A6FCB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3a5bb0;
+        }
+        
+        .login-message {
+            text-align: center;
+            margin-top: 20px;
+            color: #4A6FCB;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            display: none;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .timer-container {
+            background-color: #f5f8ff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #4A6FCB;
+        }
+        
+        .timer {
+            margin-left: 8px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #4A6FCB;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .question-number {
+            color: #4A6FCB;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f5f8ff;
+            border-color: #c5d5ff;
+        }
+        
+        .option.selected {
+            background-color: #e3eeff;
+            border-color: #4A6FCB;
+        }
+        
+        .option.correct {
+            background-color: #e7f6e9;
+            border-color: #4CAF50;
+        }
+        
+        .option.incorrect {
+            background-color: #ffe9e9;
+            border-color: #f44336;
+        }
+        
+        .option-prefix {
+            font-weight: 600;
+            margin-right: 12px;
+            color: #4A6FCB;
+        }
+        
+        .feedback {
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #e7f6e9;
+            color: #2e7d32;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #ffe9e9;
+            color: #c62828;
+            display: block;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        #prev-btn {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        #prev-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        #next-btn, #submit-btn {
+            background-color: #4A6FCB;
+            color: white;
+        }
+        
+        #next-btn:hover, #submit-btn:hover {
+            background-color: #3a5bb0;
+        }
+        
+        #submit-btn {
+            display: none;
+        }
+        
+        /* Results Styles */
+        .results-container {
+            text-align: center;
+            display: none;
+        }
+        
+        .score-container {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4A6FCB;
+            margin: 10px 0;
+        }
+        
+        .score-msg {
+            margin-bottom: 25px;
+            color: #666;
+        }
+        
+        #restart-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+        }
+        
+        #restart-btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        /* Quiz Creator Styles */
+        .creator-container {
+            display: none;
+            padding: 20px;
+        }
+        
+        .creator-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4A6FCB;
+        }
+        
+        .quiz-meta {
+            background: #f5f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .questions-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-editor {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .option-editor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .option-editor input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        
+        .option-editor input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .add-option-btn, .add-question-btn, .remove-question-btn {
+            padding: 10px 15px;
+            background: #4A6FCB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .remove-question-btn {
+            background: #f44336;
+        }
+        
+        .create-quiz-btn {
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard-container {
+            display: none;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4A6FCB;
+        }
+        
+        .quiz-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quiz-card h3 {
+            color: #4A6FCB;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-card .btn {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .quiz-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-brain"></i> QuizMaster
+            </div>
+            <div class="nav">
+                <button class="nav-btn active" id="dashboard-btn">Dashboard</button>
+                <button class="nav-btn" id="take-quiz-btn">Take Quiz</button>
+                <button class="nav-btn" id="create-quiz-btn">Create Quiz</button>
+                <button class="nav-btn" id="logout-btn">Logout</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="dashboard-container" id="dashboard-container">
+                <div class="dashboard-header">
+                    <h2>Welcome to QuizMaster</h2>
+                    <p>Test your knowledge or create your own quizzes</p>
+                </div>
+                
+                <div class="quiz-cards">
+                    <div class="quiz-card">
+                        <h3>Web Development Quiz</h3>
+                        <p>Test your knowledge of HTML, CSS, and JavaScript</p>
+                        <p><strong>10 questions</strong> • <strong>5 min</strong></p>
+                        <button class="btn start-quiz-btn" data-quiz="web">Start Quiz</button>
+                    </div>
+                    
+                    <div class="quiz-card">
+                        <h3>JavaScript Basics</h3>
+                        <p>Fundamental concepts of JavaScript programming</p>
+                        <p><strong>8 questions</strong> • <strong>4 min</strong></p>
+                        <button class="btn start-quiz-btn" data-quiz="js">Start Quiz</button>
+                    </div>
+                    
+                    <div class="quiz-card">
+                        <h3>CSS Styling Quiz</h3>
+                        <p>How well do you know CSS properties and layout?</p>
+                        <p><strong>7 questions</strong> • <strong>4 min</strong></p>
+                        <button class="btn start-quiz-btn" data-quiz="css">Start Quiz</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-container" id="auth-container">
+                <div class="welcome-section">
+                    <h2>Welcome to QuizMaster</h2>
+                    <p>Test your knowledge with our interactive quiz platform designed for students and educators.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Take multiple choice quizzes</li>
+                        <li><i class="fas fa-check-circle"></i> Create your own custom quizzes</li>
+                        <li><i class="fas fa-check-circle"></i> Timer for each question</li>
+                        <li><i class="fas fa-check-circle"></i> Instant scoring & feedback</li>
+                        <li><i class="fas fa-check-circle"></i> Track your progress</li>
+                    </ul>
+                    <div class="illustration">
+                        <i class="fas fa-brain" style="font-size: 4rem; color: #FFC107; margin-top: 20px;"></i>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="tabs">
+                        <div class="tab active" id="login-tab">Login</div>
+                        <div class="tab" id="signup-tab">Sign Up</div>
+                    </div>
+                    
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                        <div class="login-message" id="show-signup">Don't have an account? Sign up now</div>
+                    </form>
+                    
+                    <form id="signup-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" placeholder="Create a password" required>
+                            <div id="password-validation-message" class="validation-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-confirm">Confirm Password</label>
+                            <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+                        </div>
+                        <button type="submit" class="btn">Create Account</button>
+                        <div class="login-message" id="show-login">Already have an account? Login here</div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="quiz-container" id="quiz-container">
+                <div class="quiz-header">
+                    <div class="user-info">
+                        <img src="https://ui-avatars.com/api/?name=User&background=4A6FCB&color=fff" alt="User" id="user-avatar">
+                        <span id="user-name">User</span>
+                    </div>
+                    <div class="timer-container">
+                        <i class="far fa-clock"></i>
+                        <div class="timer" id="timer">00:30</div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                
+                <div class="question-number" id="question-number">Question 1 of 5</div>
+                <div class="question" id="question">What does HTML stand for?</div>
+                
+                <div class="options-container" id="options-container">
+                    </div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-btn">Previous</button>
+                    <button class="nav-btn" id="next-btn">Next</button>
+                    <button class="nav-btn" id="submit-btn">Submit Quiz</button>
+                </div>
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <h2>Quiz Results</h2>
+                <div class="score-container">
+                    Your score: <div class="score" id="score">0</div>
+                </div>
+                <p class="score-msg" id="score-msg">Great job! You've completed the quiz.</p>
+                <button class="nav-btn" id="restart-btn">Take Again</button>
+                <button class="nav-btn" id="dashboard-return-btn">Return to Dashboard</button>
+            </div>
+            
+            <div class="creator-container" id="creator-container">
+                <div class="creator-header">
+                    <h2>Create Your Own Quiz</h2>
+                    <p>Build a custom quiz with multiple choice questions</p>
+                </div>
+                
+                <div class="quiz-meta">
+                    <div class="form-group">
+                        <label for="quiz-title">Quiz Title</label>
+                        <input type="text" id="quiz-title" placeholder="Enter quiz title">
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-description">Quiz Description</label>
+                        <input type="text" id="quiz-description" placeholder="Enter quiz description">
+                    </div>
+                </div>
+                
+                <div class="questions-container" id="questions-container">
+                    <div class="question-editor" data-question-id="1">
+                        <div class="question-header">
+                            <h3>Question #1</h3>
+                            <button class="remove-question-btn">Remove Question</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Question Text</label>
+                            <input type="text" class="question-text" placeholder="Enter your question">
+                        </div>
+                        <div class="form-group">
+                            <label>Options</label>
+                            <div class="option-editor">
+                                <input type="text" placeholder="Option 1">
+                                <input type="radio" name="correct1" value="0">
+                                <span>Correct</span>
+                            </div>
+                            <div class="option-editor">
+                                <input type="text" placeholder="Option 2">
+                                <input type="radio" name="correct1" value="1">
+                                <span>Correct</span>
+                            </div>
+                            <button class="add-option-btn">Add Option</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="add-question-btn" id="add-question-btn">Add Question</button>
+                <button class="create-quiz-btn" id="create-quiz-submit-btn">Create Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM elements
+        const authContainer = document.getElementById('auth-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const creatorContainer = document.getElementById('creator-container');
+        
+        const dashboardBtn = document.getElementById('dashboard-btn');
+        const takeQuizBtn = document.getElementById('take-quiz-btn');
+        const createQuizBtn = document.getElementById('create-quiz-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+        
+        const signupPasswordInput = document.getElementById('signup-password');
+        const passwordValidationMessage = document.getElementById('password-validation-message');
+        
+        const questionNumberElement = document.getElementById('question-number');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackElement = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const timerElement = document.getElementById('timer');
+        const progressElement = document.getElementById('progress');
+        const scoreElement = document.getElementById('score');
+        const scoreMsgElement = document.getElementById('score-msg');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const dashboardReturnBtn = document.getElementById('dashboard-return-btn');
+        
+        const addQuestionBtn = document.getElementById('add-question-btn');
+        const createQuizSubmitBtn = document.getElementById('create-quiz-submit-btn');
+        const questionsContainer = document.getElementById('questions-container');
+        
+        const startQuizButtons = document.querySelectorAll('.start-quiz-btn');
+
+        // Quiz questions data
+        const quizTemplates = {
+            web: [
+                {
+                    question: "What does HTML stand for?",
+                    options: [
+                        "Hyper Text Markup Language",
+                        "High Tech Modern Language",
+                        "Hyper Transfer Markup Language",
+                        "Home Tool Markup Language"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "HTML stands for Hyper Text Markup Language, which is the standard markup language for creating web pages."
+                },
+                {
+                    question: "Which of the following is NOT a JavaScript data type?",
+                    options: [
+                        "boolean",
+                        "string",
+                        "float",
+                        "undefined"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "JavaScript has several data types including undefined, boolean, string, number, bigint, symbol, and object. 'float' is not a separate data type in JavaScript."
+                },
+                {
+                    question: "What does CSS stand for?",
+                    options: [
+                        "Creative Style Sheets",
+                        "Cascading Style Sheets",
+                        "Computer Style Sheets",
+                        "Colorful Style Sheets"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "CSS stands for Cascading Style Sheets, which is used to style and layout web pages."
+                }
+            ],
+            js: [
+                {
+                    question: "Which symbol is used for comments in JavaScript?",
+                    options: [
+                        "//",
+                        "",
+                        "/* */",
+                        "#"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "In JavaScript, // is used for single-line comments and /* */ is used for multi-line comments."
+                },
+                {
+                    question: "Which method is used to add an element at the end of an array in JavaScript?",
+                    options: [
+                        "append()",
+                        "push()",
+                        "add()",
+                        "insert()"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The push() method adds one or more elements to the end of an array and returns the new length of the array."
+                }
+            ],
+            css: [
+                {
+                    question: "Which CSS property is used to change the background color?",
+                    options: [
+                        "color",
+                        "bgcolor",
+                        "background-color",
+                        "background"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The background-color property is used to set the background color of an element."
+                },
+                {
+                    question: "Which CSS property controls the text size?",
+                    options: [
+                        "font-style",
+                        "text-size",
+                        "font-size",
+                        "text-style"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The font-size property sets the size of the text."
+                }
+            ]
+        };
+
+        let currentQuiz = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+        let quizTime = 0;
+        let timeLeft = 30;
+        let timerInterval;
+        let questionTimer;
+        let isLoggedIn = false;
+
+        // Initialize the application
+        function init() {
+            // Check if user is logged in (in a real app, this would check authentication state)
+            const user = localStorage.getItem('quizUser');
+            if (user) {
+                isLoggedIn = true;
+                const userData = JSON.parse(user);
+                userName.textContent = userData.name;
+                userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=4A6FCB&color=fff`;
+                showDashboard();
+            } else {
+                showAuth();
+            }
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Navigation
+            dashboardBtn.addEventListener('click', showDashboard);
+            takeQuizBtn.addEventListener('click', showTakeQuiz);
+            createQuizBtn.addEventListener('click', showCreateQuiz);
+            logoutBtn.addEventListener('click', logout);
+            
+            // Auth
+            loginTab.addEventListener('click', () => switchAuthTab('login'));
+            signupTab.addEventListener('click', () => switchAuthTab('signup'));
+            showSignup.addEventListener('click', () => switchAuthTab('signup'));
+            showLogin.addEventListener('click', () => switchAuthTab('login'));
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            signupPasswordInput.addEventListener('input', () => validatePassword(signupPasswordInput.value));
+            
+            // Quiz
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            submitBtn.addEventListener('click', showResults);
+            restartBtn.addEventListener('click', restartQuiz);
+            dashboardReturnBtn.addEventListener('click', showDashboard);
+            
+            // Start quiz buttons
+            startQuizButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const quizType = e.target.getAttribute('data-quiz');
+                    startQuiz(quizType);
+                });
+            });
+            
+            // Quiz creator
+            addQuestionBtn.addEventListener('click', addQuestion);
+            createQuizSubmitBtn.addEventListener('click', createQuiz);
+            
+            // Event delegation for dynamically added elements
+            questionsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-question-btn')) {
+                    removeQuestion(e.target.closest('.question-editor'));
+                }
+                
+                if (e.target.classList.contains('add-option-btn')) {
+                    addOption(e.target.closest('.question-editor'));
+                }
+            });
+        }
+
+        // Password validation function
+        function validatePassword(password) {
+            const errors = [];
+            if (password.length < 8) errors.push("at least 8 characters");
+            if (!/[A-Z]/.test(password)) errors.push("one uppercase letter");
+            if (!/[a-z]/.test(password)) errors.push("one lowercase letter");
+            if (!/[0-9]/.test(password)) errors.push("one number");
+            if (!/[^A-Za-z0-9]/.test(password)) errors.push("one special character");
+
+            if (errors.length > 0) {
+                passwordValidationMessage.textContent = 'Password must contain: ' + errors.join(', ') + '.';
+                passwordValidationMessage.style.display = 'block';
+                signupPasswordInput.classList.add('invalid');
+                return false;
+            }
+
+            passwordValidationMessage.style.display = 'none';
+            signupPasswordInput.classList.remove('invalid');
+            return true;
+        }
+
+        // Auth functions
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                signupTab.classList.add('active');
+                loginTab.classList.remove('active');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (email && password) {
+                // In a real app, verify credentials with backend
+                const userData = {
+                    name: email.split('@')[0],
+                    email: email
+                };
+                localStorage.setItem('quizUser', JSON.stringify(userData));
+                isLoggedIn = true;
+                userName.textContent = userData.name;
+                userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=4A6FCB&color=fff`;
+                showDashboard();
+            }
+        }
+
+        function handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const confirm = document.getElementById('signup-confirm').value;
+
+    const isPasswordValid = validatePassword(password);
+    if (!isPasswordValid) return;
+
+    if (password !== confirm) {
+        alert("Passwords don't match!");
+        return;
+    }
+
+    // Save new user to localStorage
+    const userData = { name, email, password };
+    localStorage.setItem('quizUser', JSON.stringify(userData));
+
+    isLoggedIn = true;
+    userName.textContent = name;
+    userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4A6FCB&color=fff`;
+    showDashboard();
+}
+
+
+        function logout() {
+            localStorage.removeItem('quizUser');
+            isLoggedIn = false;
+            showAuth();
+        }
+
+        // View management
+        function showAuth() {
+            hideAllViews();
+            authContainer.style.display = 'flex';
+            updateNavButtons(false);
+        }
+
+        function showDashboard() {
+            if (!isLoggedIn) {
+                showAuth();
+                return;
+            }
+            
+            hideAllViews();
+            dashboardContainer.style.display = 'block';
+            updateNavButtons(true);
+            dashboardBtn.classList.add('active');
+        }
+
+        function showTakeQuiz() {
+            if (!isLoggedIn) {
+                showAuth();
+                return;
+            }
+            
+            // Default to web quiz if no specific quiz started
+            startQuiz('web');
+        }
+
+        function showCreateQuiz() {
+            if (!isLoggedIn) {
+                showAuth();
+                return;
+            }
+            
+            hideAllViews();
+            creatorContainer.style.display = 'block';
+            updateNavButtons(true);
+            createQuizBtn.classList.add('active');
+        }
+
+        function hideAllViews() {
+            authContainer.style.display = 'none';
+            dashboardContainer.style.display = 'none';
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
+            creatorContainer.style.display = 'none';
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        function updateNavButtons(loggedIn) {
+            if (loggedIn) {
+                dashboardBtn.style.display = 'block';
+                takeQuizBtn.style.display = 'block';
+                createQuizBtn.style.display = 'block';
+                logoutBtn.style.display = 'block';
+            } else {
+                dashboardBtn.style.display = 'none';
+                takeQuizBtn.style.display = 'none';
+                createQuizBtn.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Quiz functions
+        function startQuiz(quizType) {
+            currentQuiz = quizTemplates[quizType];
+            currentQuestionIndex = 0;
+            userAnswers = Array(currentQuiz.length).fill(null);
+            score = 0;
+            quizTime = 0;
+            
+            hideAllViews();
+            quizContainer.style.display = 'block';
+            takeQuizBtn.classList.add('active');
+            
+            showQuestion();
+            startTimer();
+        }
+
+        function showQuestion() {
+            const question = currentQuiz[currentQuestionIndex];
+            
+            // Update question number and text
+            questionNumberElement.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuiz.length}`;
+            questionElement.textContent = question.question;
+            
+            // Update progress bar
+            progressElement.style.width = `${((currentQuestionIndex + 1) / currentQuiz.length) * 100}%`;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                
+                const optionPrefix = document.createElement('span');
+                optionPrefix.classList.add('option-prefix');
+                optionPrefix.textContent = String.fromCharCode(65 + index); // A, B, C, D
+                
+                const optionText = document.createElement('span');
+                optionText.textContent = option;
+                
+                optionElement.appendChild(optionPrefix);
+                optionElement.appendChild(optionText);
+                
+                // If this option was previously selected by user
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionElement.classList.add('selected');
+                    
+                    // If we're reviewing, show correct/incorrect
+                    if (userAnswers[currentQuestionIndex] !== null) {
+                        if (index === question.correctAnswer) {
+                            optionElement.classList.add('correct');
+                        } else {
+                            optionElement.classList.add('incorrect');
+                        }
+                    }
+                }
+                
+                // If we're reviewing and this is the correct answer
+                if (userAnswers[currentQuestionIndex] !== null && index === question.correctAnswer) {
+                    optionElement.classList.add('correct');
+                }
+                
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Clear feedback
+            feedbackElement.classList.remove('correct', 'incorrect');
+            feedbackElement.style.display = 'none';
+            
+            // Update navigation buttons
+            prevBtn.style.display = currentQuestionIndex === 0 ? 'none' : 'block';
+            
+            if (currentQuestionIndex === currentQuiz.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+            
+            // Reset and start question timer
+            resetQuestionTimer();
+            startQuestionTimer();
+        }
+
+        function selectOption(optionIndex) {
+            // If we've already answered this question, don't allow changes
+            if (userAnswers[currentQuestionIndex] !== null) return;
+            
+            // Mark option as selected
+            const options = optionsContainer.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Check if answer is correct
+            const isCorrect = optionIndex === currentQuiz[currentQuestionIndex].correctAnswer;
+            
+            // Show feedback
+            feedbackElement.textContent = currentQuiz[currentQuestionIndex].explanation;
+            feedbackElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+            feedbackElement.style.display = 'block';
+            
+            // If incorrect, highlight correct answer
+            if (!isCorrect) {
+                options[currentQuiz[currentQuestionIndex].correctAnswer].classList.add('correct');
+            }
+            
+            // Stop the question timer
+            clearInterval(questionTimer);
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < currentQuiz.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                quizTime++;
+                const minutes = Math.floor(quizTime / 60).toString().padStart(2, '0');
+                const seconds = (quizTime % 60).toString().padStart(2, '0');
+                document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            timeLeft = 30;
+            timerElement.textContent = `00:${timeLeft.toString().padStart(2, '0')}`;
+            
+            questionTimer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `00:${timeLeft.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(questionTimer);
+                    if (userAnswers[currentQuestionIndex] === null) {
+                        feedbackElement.textContent = "Time's up! The correct answer is highlighted.";
+                        feedbackElement.classList.add('incorrect');
+                        feedbackElement.style.display = 'block';
+                        
+                        const options = optionsContainer.querySelectorAll('.option');
+                        options[currentQuiz[currentQuestionIndex].correctAnswer].classList.add('correct');
+                        
+                        userAnswers[currentQuestionIndex] = -1; // Mark as unanswered
+                    }
+                }
+            }, 1000);
+        }
+
+        function resetQuestionTimer() {
+            clearInterval(questionTimer);
+            timerElement.textContent = '00:30';
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            clearInterval(questionTimer);
+        }
+
+        function showResults() {
+            // Calculate score
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === currentQuiz[index].correctAnswer) {
+                    score++;
+                }
+            });
+            
+            // Stop timer
+            stopTimer();
+            
+            // Hide quiz body, show results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // Display score
+            scoreElement.textContent = `${score} / ${currentQuiz.length}`;
+            
+            // Display message based on score
+            const percentage = (score / currentQuiz.length) * 100;
+            let message;
+            
+            if (percentage >= 80) {
+                message = "Excellent work! You have a strong understanding of the material.";
+            } else if (percentage >= 60) {
+                message = "Good job! You have a decent understanding but could use some more practice.";
+            } else {
+                message = "Keep practicing! Review the material and try again.";
+            }
+            
+            scoreMsgElement.textContent = message;
+        }
+
+        function restartQuiz() {
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = Array(currentQuiz.length).fill(null);
+            score = 0;
+            quizTime = 0;
+            
+            // Reset UI
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            document.getElementById('timer').textContent = '00:00';
+            progressElement.style.width = '0%';
+            
+            // Restart timer
+            startTimer();
+            
+            // Show first question
+            showQuestion();
+        }
+
+        // Quiz creator functions
+        function addQuestion() {
+            const questionId = Date.now(); // Unique ID
+            const questionCount = document.querySelectorAll('.question-editor').length + 1;
+            
+            const questionEditor = document.createElement('div');
+            questionEditor.classList.add('question-editor');
+            questionEditor.setAttribute('data-question-id', questionId);
+            
+            questionEditor.innerHTML = `
+                <div class="question-header">
+                    <h3>Question #${questionCount}</h3>
+                    <button class="remove-question-btn">Remove Question</button>
+                </div>
+                <div class="form-group">
+                    <label>Question Text</label>
+                    <input type="text" class="question-text" placeholder="Enter your question">
+                </div>
+                <div class="form-group">
+                    <label>Options</label>
+                    <div class="option-editor">
+                        <input type="text" placeholder="Option 1">
+                        <input type="radio" name="correct${questionId}" value="0">
+                        <span>Correct</span>
+                    </div>
+                    <div class="option-editor">
+                        <input type="text" placeholder="Option 2">
+                        <input type="radio" name="correct${questionId}" value="1">
+                        <span>Correct</span>
+                    </div>
+                    <button class="add-option-btn">Add Option</button>
+                </div>
+            `;
+            
+            questionsContainer.appendChild(questionEditor);
+        }
+
+        function addOption(questionEditor) {
+            const optionEditors = questionEditor.querySelectorAll('.option-editor');
+            const optionCount = optionEditors.length;
+            const questionId = questionEditor.getAttribute('data-question-id');
+            
+            const optionEditor = document.createElement('div');
+            optionEditor.classList.add('option-editor');
+            
+            optionEditor.innerHTML = `
+                <input type="text" placeholder="Option ${optionCount + 1}">
+                <input type="radio" name="correct${questionId}" value="${optionCount}">
+                <span>Correct</span>
+            `;
+            
+            questionEditor.querySelector('.form-group:last-child').insertBefore(optionEditor, questionEditor.querySelector('.add-option-btn'));
+        }
+
+        function removeQuestion(questionEditor) {
+            if (document.querySelectorAll('.question-editor').length > 1) {
+                questionEditor.remove();
+                
+                // Update question numbers
+                document.querySelectorAll('.question-editor').forEach((editor, index) => {
+                    editor.querySelector('h3').textContent = `Question #${index + 1}`;
+                });
+            } else {
+                alert("You need at least one question for your quiz.");
+            }
+        }
+
+        function createQuiz() {
+            const title = document.getElementById('quiz-title').value;
+            const description = document.getElementById('quiz-description').value;
+            
+            if (!title) {
+                alert("Please enter a title for your quiz.");
+                return;
+            }
+            
+            const questions = [];
+            const questionEditors = document.querySelectorAll('.question-editor');
+            
+            for (const editor of questionEditors) {
+                const questionText = editor.querySelector('.question-text').value;
+                if (!questionText) {
+                    alert("Please fill in all question fields.");
+                    return;
+                }
+                
+                const options = [];
+                let correctAnswer = null;
+                
+                const optionInputs = editor.querySelectorAll('.option-editor');
+                for (let i = 0; i < optionInputs.length; i++) {
+                    const optionText = optionInputs[i].querySelector('input[type="text"]').value;
+                    if (!optionText) {
+                        alert("Please fill in all option fields.");
+                        return;
+                    }
+                    
+                    options.push(optionText);
+                    
+                    // Check if this option is marked as correct
+                    if (optionInputs[i].querySelector('input[type="radio"]').checked) {
+                        correctAnswer = i;
+                    }
+                }
+                
+                if (correctAnswer === null) {
+                    alert("Please mark the correct answer for each question.");
+                    return;
+                }
+                
+                questions.push({
+                    question: questionText,
+                    options: options,
+                    correctAnswer: correctAnswer,
+                    explanation: "This is a custom quiz question."
+                });
+            }
+            
+            // In a real app, you would save the quiz to a database
+            // For this demo, we'll just show a success message
+            alert(`Quiz "${title}" created successfully with ${questions.length} questions!`);
+            
+            // Reset the form
+            document.getElementById('quiz-title').value = '';
+            document.getElementById('quiz-description').value = '';
+            
+            // Keep only the first question editor
+            const editors = document.querySelectorAll('.question-editor');
+            for (let i = 1; i < editors.length; i++) {
+                editors[i].remove();
+            }
+            
+            // Reset the first question editor
+            const firstEditor = document.querySelector('.question-editor');
+            firstEditor.querySelector('.question-text').value = '';
+            
+            const optionInputs = firstEditor.querySelectorAll('.option-editor input[type="text"]');
+            optionInputs[0].value = '';
+            optionInputs[1].value = '';
+            
+            // Remove additional options beyond the first two
+            const extraOptions = firstEditor.querySelectorAll('.option-editor:not(:first-child):not(:nth-child(2))');
+            extraOptions.forEach(option => option.remove());
+            
+            // Check the first option as correct by default
+            firstEditor.querySelector('input[type="radio"]').checked = true;
+            
+            showDashboard();
+        }
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
